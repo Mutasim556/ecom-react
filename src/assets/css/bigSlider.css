@@ -1,0 +1,17 @@
+.slick-dots {
+    top: 90% ;
+}
+.slider-img{
+    width: 100% !important;
+    height: 480px;
+}
+
+.slick-slide{
+    height:auto !important;      
+}
+
+@media screen and (max-width: 992px) {
+    .slider-img{
+        height: 200px;
+    }
+  }
