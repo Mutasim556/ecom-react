@@ -36,23 +36,6 @@ export class NavMenuDesktop extends Component {
             });
         }
     }
-    // componentDidMount(){
-    //     this.GetVisitorDetails();
-    // }
-    // GetVisitorDetails = () =>{
-    //     axios.get(appURL.BaseURL+"/get-visitor")
-    //     .then((res)=>{
-    //       this.setState({
-    //         ip_address : res.data.user_info.visitor_ip,
-    //         visit_date : res.data.user_info.visit_date,
-    //         visit_time : res.data.user_info.visit_time,
-    //       });
-    //       console.log(res.data.user_info);
-    //     })
-    //     .catch((err)=>{
-    
-    //     })
-    //   }
   render() {
     return (
       <Fragment>
