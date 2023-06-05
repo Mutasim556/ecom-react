@@ -18,7 +18,6 @@ export class HomeTop extends Component {
     .then((res)=>{
       this.setState({
         allCategories : res.data.allCategories,
-        allSubCategories : res.data.subCategories,
       });
     })
     .catch((err)=>{
@@ -31,7 +30,7 @@ export class HomeTop extends Component {
         <Container className='p-0 m-0 oveflow-hiidden' fluid>
             <Row>
                 <Col lg="3" md="3" sm="12" >
-                <MegaMenu data={this.state.allCategories}/>
+                <MegaMenu data={this.state.allCategories} />
                 {/* {console.log(this.state.allCategories[0])} */}
                 </Col>
                 <Col lg="9" md="9" sm="12" >

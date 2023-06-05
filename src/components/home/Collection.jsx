@@ -1,8 +1,51 @@
+import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row , Card} from 'react-bootstrap'
+import appURL from '../api/appURL';
+
 
 export class Collection extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        productDetails :[],
+    }
+  }
+  componentDidMount(){
+    axios.get(appURL.BaseURL+"/all-products/COLLECTION")
+    .then((res)=>{
+      this.setState({
+        productDetails : res.data,
+      })
+    })
+  }
   render() {
+    let Products = this.state.productDetails.map((Product,idx)=>{
+      if(Product.product_discount===null){
+          return <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={12} xs={6}>
+          <Card className='card image-box w-100'>
+            <img className='center w-100' src={Product.product_image} alt="" />
+            <Card.Body>
+              <p className='product-name-on-card'>{Product.product_name}</p>
+              <p className='product-price-on-card'>{Product.product_price } BDT</p>
+            </Card.Body>
+          </Card>
+        </Col>
+      }else{
+        return <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={12} xs={6}>
+        <Card className='card image-box w-100'>
+          <img className='center w-100' src={Product.product_image} alt="" />
+          <Card.Body>
+            <p className='product-name-on-card'>{Product.product_name}</p>
+            <p className='product-price-on-card'>
+            <strike className="text-primary">{Product.product_price } BDT</strike><br />
+                            {Product.product_discount_price } BDT
+            </p>
+          </Card.Body>
+        </Card>
+      </Col>
+      }
+    });
     return (
       <Fragment>
         <Container className='text-center' fluid>
@@ -11,42 +54,7 @@ export class Collection extends Component {
                 <p>Some of our exclusive collection , You may like</p>
             </div>
             <Row>
-                <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={12} xs={6}>
-                  <Card className='card image-box w-100'>
-                    <img className='center w-100' src="https://rukminim1.flixcart.com/image/612/612/xif0q/t-shirt/k/l/y/xl-tsrt-catalog-03-kajaru-original-imagm7taxer3czn5.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Pack of 2 Men Striped Round Neck Pink, Grey T-Shirt</p>
-                      <p className='product-price-on-card'>$399</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={12} xs={6}>
-                  <Card className='card image-box w-100'>
-                    <img className='center w-100' src="https://rukminim1.flixcart.com/image/832/832/k7f34i80/t-shirt/r/y/r/m-10940528-roadster-original-imafpnru9dnr3phh.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Men Typography Round Neck Dark Blue T-Shirt</p>
-                      <p className='product-price-on-card'>$399</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
-                  <Card className='card image-box w-100'>
-                    <img className='center w-100' src="https://rukminim1.flixcart.com/image/832/832/xif0q/t-shirt/x/v/e/l-all-rbcropn-sky-one-nb-nicky-boy-original-imagkq6hgg5gqsep.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Men Printed Round Neck Light Blue T-Shirt</p>
-                      <p className='product-price-on-card'>$399</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
-                  <Card className='card image-box w-100'>
-                    <img className='center w-75' src="https://rukminim1.flixcart.com/image/832/832/xif0q/t-shirt/q/2/i/m-s-r-b-w-farbot-original-imagjuxy9kn5qyam.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Men Color Block Round Neck Black T-Shirt</p>
-                      <p className='product-price-on-card'>$399</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
+                {Products}
             </Row>
         </Container>
       </Fragment>

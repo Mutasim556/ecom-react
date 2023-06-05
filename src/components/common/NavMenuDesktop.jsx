@@ -12,7 +12,11 @@ export class NavMenuDesktop extends Component {
         this.state ={
             sideBar : "sideNavClose",
             overLay : "ContentOverlayClose",
+            allCategories : [],
+            allSubCategories : [],
         }
+
+
     }
 
     SideNavBarHandler = () =>{
@@ -36,7 +40,10 @@ export class NavMenuDesktop extends Component {
             });
         }
     }
+
+    
   render() {
+    
     return (
       <Fragment>
         <div className='topSectionDown'>

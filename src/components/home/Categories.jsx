@@ -1,8 +1,37 @@
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row, Card } from 'react-bootstrap'
-
+import axios from 'axios'
+import appURL from '../api/appURL'
 export class Categories extends Component {
+  constructor(){
+    super()
+    this.state={
+        allCategories : [],
+        allSubCategories : [],
+    }
+  }
+  componentDidMount(){
+    axios.get(appURL.BaseURL+'/get-sub-category')
+        .then((res)=>{
+          this.setState({
+            allCategories : res.data.allCategories,
+          });
+        })
+        .catch((err)=>{
+    
+    })
+  }
   render() {
+    let Catlist = this.state.allCategories.map((Catlist,idx)=>{
+        return<Col className='p-0' key={idx.toString()} xl={2} lg={2} md={2} sm={6} xs={6}>
+        <Card className='h-100 w-100 text-center'>
+            <img className='center' src={Catlist.category_image} alt="" />
+            <Card.Body>
+            <h5 className='category-name'>{Catlist.category_name}</h5>
+            </Card.Body>
+        </Card>
+    </Col>
+    })
     return (
       <Fragment>
         <Container className='text-center' fluid={true}>
@@ -11,43 +40,12 @@ export class Categories extends Component {
                 <p>Some of our categories , you may like</p>
             </div>
             <Row>
-                <Col key={1} xl={6} lg={6} md={2} sm={12} xs={12}>
+                <Col key={1} xl={12} lg={12} md={2} sm={12} xs={12} >
                     <Row>
-                        <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
-                            <Card className='h-100 w-100 text-center'>
-                                <img className='center' src="https://rukminim1.flixcart.com/flap/128/128/image/29327f40e9c4d26b.png?q=100" alt="" />
-                                <Card.Body>
-                                <h5 className='category-name'>Grocery</h5>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
-                            <Card className='h-100 w-100 text-center'>
-                                <img className='center' src="https://rukminim1.flixcart.com/flap/128/128/image/22fddf3c7da4c4f4.png?q=100" alt="" />
-                                <Card.Body>
-                                <h5 className='category-name'>Mobile</h5>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
-                            <Card className='h-100 w-100 text-center'>
-                                <img className='center' src="https://rukminim1.flixcart.com/fk-p-flap/128/128/image/0d75b34f7d8fbcb3.png?q=100" alt="" />
-                                <Card.Body>
-                                <h5 className='category-name'>Fashion</h5>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
-                            <Card className='h-100 w-100 text-center'>
-                                <img className='center' src="https://rukminim1.flixcart.com/flap/128/128/image/69c6589653afdb9a.png?q=100" alt="" />
-                                <Card.Body>
-                                <h5 className='category-name'>Electronics</h5>
-                                </Card.Body>
-                            </Card>
-                        </Col>
+                        {Catlist}
                     </Row>
                 </Col>
-                <Col key={1} xl={6} lg={6} md={2} sm={12} xs={12}>
+                {/* <Col key={1} xl={6} lg={6} md={2} sm={12} xs={12}>
                     <Row>
                         <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
                             <Card className='h-100 w-100 text-center'>
@@ -82,7 +80,7 @@ export class Categories extends Component {
                             </Card>
                         </Col>
                     </Row>
-                </Col>
+                </Col> */}
             </Row>
         </Container>
       </Fragment>

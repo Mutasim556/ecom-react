@@ -1,8 +1,57 @@
+import axios from 'axios'
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row ,Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import appURL from '../api/appURL'
 export class FeatureProduct extends Component {
+  constructor(){
+    super()
+    this.state = {
+      productDetails :[],
+    }
+  }
+
+
+  componentDidMount(){
+    axios.get(appURL.BaseURL+"/all-products/FEATURED")
+    .then((res)=>{
+      this.setState({
+        productDetails : res.data,
+      })
+    })
+  }
   render() {
+    let Products = this.state.productDetails.map((Product,idx)=>{
+      if(Product.product_discount===null){
+        return <Col className='p-1' key={idx.toString()} xl={2} lg={2} md={2} sm={2} xs={6}>
+            <Link to="/product-details" className='text-decoration-none'>
+            <Card className='card image-box'>
+              <img className='center' src={Product.product_image} alt="" />
+              <Card.Body>
+                <p className='product-name-on-card'>{Product.product_name}</p>
+                <p className='product-price-on-card'>{Product.product_price } BDT</p>
+              </Card.Body>
+            </Card>
+            </Link>
+        </Col>
+      }else{
+        return <Col className='p-1' key={idx.toString()} xl={2} lg={2} md={2} sm={2} xs={6}>
+                <Link to="/product-details" className='text-decoration-none'>
+                <Card className='card image-box'>
+                  <img className='center' src={Product.product_image} alt="" />
+                  <Card.Body>
+                    <p className='product-name-on-card'>{Product.product_name}</p>
+                    <p className='product-price-on-card'>
+                      <strike className="text-primary">{Product.product_price } BDT</strike><br />
+                      {Product.product_discount_price } BDT
+                    </p>
+                  </Card.Body>
+                </Card>
+                </Link>
+              </Col>
+      }
+      
+    })
     return (
       <Fragment>
         <Container className='text-center' fluid={true}>
@@ -11,62 +60,7 @@ export class FeatureProduct extends Component {
                 <p>Some of our exclusive product , You may like</p>
             </div>
             <Row>
-                <Col className='p-1' key={1} xl={2} lg={2} md={2} sm={2} xs={6}>
-                  <Link to="/product-details" className='text-decoration-none'>
-                  <Card className='card image-box'>
-                    <img className='center' src="https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/s/y/0/-original-imaggbrbxkqr3v3u.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Google Pixel 6a (Charcoal, 128 GB)  (6 GB RAM)</p>
-                      <p className='product-price-on-card'>$120</p>
-                    </Card.Body>
-                  </Card>
-                  </Link>
-                </Col>
-                <Col className='p-1' key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-                  <Card className='card image-box'>
-                    <img className='center' src="https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/8/d/b/-original-imagp9s9wfzp8ghf.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Google Pixel 6a (Charcoal, 128 GB)  (6 GB RAM)</p>
-                      <p className='product-price-on-card'>$120</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-1' key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-                  <Card className='card image-box'>
-                    <img className='center' src="https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/s/y/0/-original-imaggbrbxkqr3v3u.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Google Pixel 6a (Charcoal, 128 GB)  (6 GB RAM)</p>
-                      <p className='product-price-on-card'>$120</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-1' key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-                  <Card className='card image-box'>
-                    <img className='center' src="https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/s/y/0/-original-imaggbrbxkqr3v3u.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Google Pixel 6a (Charcoal, 128 GB)  (6 GB RAM)</p>
-                      <p className='product-price-on-card'>$120</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-1' key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-                  <Card className='card image-box'>
-                    <img className='center' src="https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/s/y/0/-original-imaggbrbxkqr3v3u.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Google Pixel 6a (Charcoal, 128 GB)  (6 GB RAM)</p>
-                      <p className='product-price-on-card'>$120</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col className='p-1' key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-                  <Card className='card image-box'>
-                    <img className='center' src="https://rukminim1.flixcart.com/image/416/416/xif0q/mobile/s/y/0/-original-imaggbrbxkqr3v3u.jpeg?q=70" alt="" />
-                    <Card.Body>
-                      <p className='product-name-on-card'>Google Pixel 6a (Charcoal, 128 GB)  (6 GB RAM)</p>
-                      <p className='product-price-on-card'>$120</p>
-                    </Card.Body>
-                  </Card>
-                </Col>
+                {Products}
             </Row>
         </Container>
         
