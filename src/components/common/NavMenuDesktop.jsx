@@ -72,6 +72,7 @@ export class NavMenuDesktop extends Component {
                         <Link to="/notifications" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-bell fa-shake'></i><sup><span className='badge bg-danger text-white'>6</span></sup></Link>
                         <Link to="/" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-mobile'></i><sup><span className='badge bg-danger text-white'>9</span></sup></Link>
                         <Link to="/login" className='btn'>LOGIN</Link>
+                        <Link to="/register" className='btn'>REGISTER</Link>
                         <Link  to="/cart" className='cart-btn text-decoration-none text-white'>
                             <i className='fa fa-shopping-cart'></i>&nbsp; 3 Products
                         </Link>

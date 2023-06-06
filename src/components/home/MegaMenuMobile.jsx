@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import appURL from '../api/appURL';
+import { Link } from 'react-router-dom';
 export class MegaMenuMobile extends Component {
     constructor(){
         super();
@@ -52,7 +53,11 @@ export class MegaMenuMobile extends Component {
         }
 
    }
+   
   render() {
+    const clickMe = () =>{
+        window.location.reload()
+    }
     let Cat =  this.state.allCategories;
     let CatList = Cat.map((Cat,i)=>{
         return <div key={i.toString()}>
@@ -65,7 +70,7 @@ export class MegaMenuMobile extends Component {
                 <ul>
                     {
                         Cat.subcategory.map((SubCat,idx)=>{
-                            return <li><a href="#" className="accordionMobileItem" > {SubCat.sub_category_name}</a></li>
+                            return <li><Link to={"/sub-category-product/"+SubCat.id} className="accordionMobileItem" > {SubCat.sub_category_name}</Link></li>
                         })
                     }
                 </ul>

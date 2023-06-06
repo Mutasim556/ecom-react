@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row ,Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-export class CategoryProductPage extends Component {
+export class SubCategoryProductPage extends Component {
   constructor(props){
     super()
   }
@@ -40,7 +40,7 @@ export class CategoryProductPage extends Component {
       <Fragment>
         <Container className='text-center' fluid={true}>
             <div className='section-title text-center mb-55'>
-                <h2 style={{ textTransform:'uppercase' }}>{this.props.category.category_name}</h2>
+                <h2 style={{ textTransform:'uppercase' }}>{this.props.subcategory.category_name} - {this.props.subcategory.sub_category_name}</h2>
             </div>
             <Row>
                 {product}
@@ -52,4 +52,4 @@ export class CategoryProductPage extends Component {
   }
 }
 
-export default CategoryProductPage
+export default SubCategoryProductPage
