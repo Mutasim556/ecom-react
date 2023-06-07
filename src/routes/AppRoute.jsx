@@ -38,7 +38,7 @@ export class AppRoute extends Component {
             <Route path="/sub-category-product/:subCategoryId"  element={<SubCategoryProduct />}></Route>
             <Route path="/register"  element={<Register />}></Route>
             <Route path="/forget-password"  element={<ForgetPassword />}></Route>
-            <Route path="/reset-password"  element={<ResetPassword />}></Route>
+            <Route path="/reset-password/:resetCode"  element={<ResetPassword />}></Route>
             <Route path="/user-profile"  element={<USerProfile />}></Route>
         </Routes>
       </Fragment>
