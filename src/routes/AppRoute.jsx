@@ -17,8 +17,30 @@ import Register from '../pages/Register'
 import ForgetPassword from '../pages/ForgetPassword'
 import ResetPassword from '../pages/ResetPassword'
 import USerProfile from '../pages/UserProfile'
+import appURL from '../components/api/appURL'
+import axios from 'axios'
 
 export class AppRoute extends Component {
+  constructor(){
+    super()
+   this.state ={
+    user :{},
+   }
+  }
+  componentDidMount(){
+      let token = localStorage.getItem("token");
+      if(token!=null){
+        axios.get(appURL.BaseURL+'/get-user-info',{
+          headers :{
+            'Authorization' : `Bearer ${localStorage.getItem("token")}`,
+          }
+        })
+        .then((res)=>{
+          this.setState({user:res.data});
+        })
+      }
+      
+  }
   render() {
     return (
       <Fragment>
@@ -39,7 +61,7 @@ export class AppRoute extends Component {
             <Route path="/register"  element={<Register />}></Route>
             <Route path="/forget-password"  element={<ForgetPassword />}></Route>
             <Route path="/reset-password/:resetCode"  element={<ResetPassword />}></Route>
-            <Route path="/user-profile"  element={<USerProfile />}></Route>
+            <Route path="/user-profile" element={<USerProfile  userD={this.state.user}/>}></Route>
         </Routes>
       </Fragment>
     )

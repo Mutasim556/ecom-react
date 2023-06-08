@@ -7,35 +7,18 @@ import appURL from '../api/appURL'
 import axios from 'axios'
 
 export class UserProfilePage extends Component {
-  constructor(){
+  constructor(props){
     super()
-   this.state ={
-    user :'',
-   }
   }
-  componentDidMount(){
-      axios.get(appURL.BaseURL+'/get-user-info',{
-        headers :{
-          'Authorization' : `Bearer ${localStorage.getItem("token")}`,
-        }
-      })
-      .then((res)=>{
-        this.setState({
-          user : res.data,
-        })
-          console.log(res.data);
-      })
 
-      // console.log(this.state.user);
-  }
   render() {
     return (
       <Fragment>
         <h1> User Profile Page </h1>
 
 <br /> <ul className="list-group">
-         <li className="list-group-item">Name :  {this.state.user.name} </li>
-         <li className="list-group-item">Email :  {this.state.user.email} </li>
+         <li className="list-group-item">Name :  {this.props.userDetails.name} </li>
+         <li className="list-group-item">Email :  {this.props.userDetails.email} </li>
  </ul>
       </Fragment>
     )

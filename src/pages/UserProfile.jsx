@@ -4,10 +4,13 @@ import NavMenuMobile from '../components/common/NavMenuMobile'
 import FooterDesktop from '../components/common/FooterDesktop'
 import FooterMobile from '../components/common/FooterMobile'
 import UserProfilePage from '../components/common/UserProfilePage'
+import axios from 'axios'
+import appURL from '../components/api/appURL'
+
 export class USerProfile extends Component {
-    componentDidMount(){
-        window.scroll(0,0);
-      }
+  constructor(props){
+    super()
+  }
   render() {
     return (
       <Fragment>
@@ -17,7 +20,7 @@ export class USerProfile extends Component {
         <div className='Mobile'>
            <NavMenuMobile/>
         </div>
-        <UserProfilePage/>
+        <UserProfilePage userDetails={this.props.userD}/>
         
         <div className='Desktop'>
           <FooterDesktop/>
