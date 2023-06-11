@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { Container,Row,Col, Form, Button } from 'react-bootstrap'
 import ForgetImage from './../../assets/images/forget.jpg'
-import { Link } from 'react-router-dom'
+import { Link, redirect } from 'react-router-dom'
 import userInfo from '../api/userInfo'
 import appURL from '../api/appURL'
 import axios from 'axios'
-
 export class UserProfilePage extends Component {
   constructor(props){
     super()

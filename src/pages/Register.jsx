@@ -4,11 +4,15 @@ import NavMenuMobile from '../components/common/NavMenuMobile'
 import FooterDesktop from '../components/common/FooterDesktop'
 import FooterMobile from '../components/common/FooterMobile'
 import RegisterPage from '../components/common/RegisterPage'
+import { Navigate } from 'react-router-dom'
 export class Register extends Component {
     componentDidMount(){
         window.scroll(0,0);
       }
   render() {
+    if(localStorage.getItem('token')){
+      return <Navigate to={"/user-profile"} />
+    }
     return (
       <Fragment>
         <div className='Desktop'>

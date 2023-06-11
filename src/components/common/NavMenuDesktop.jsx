@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import axios from 'axios'
-import { Navbar,Container, Row, Col, Button } from 'react-bootstrap'
+import { Navbar,Container, Row, Col, Button,Tooltip, OverlayTrigger } from 'react-bootstrap'
 import Logo from './../../assets/images/easyshop.png'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import MegaMenuMobile from '../home/MegaMenuMobile'
 import NavLogo from './../../assets/images/menu (2).png'
 import appURL from '../api/appURL'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export class NavMenuDesktop extends Component {
     constructor(props){
         super(props)
@@ -14,6 +16,7 @@ export class NavMenuDesktop extends Component {
             overLay : "ContentOverlayClose",
             allCategories : [],
             allSubCategories : [],
+            login : true,
         }
 
 
@@ -41,9 +44,50 @@ export class NavMenuDesktop extends Component {
         }
     }
 
+    Logout = () => {
+        let token = localStorage.getItem('token');
+        axios.get(appURL.BaseURL+'/logout',{
+            headers :{
+              'Authorization' : `Bearer ${localStorage.getItem("token")}`,
+            }
+        }).then(()=>{
+            toast.success('Logout successfull');
+        }).catch(()=>{
+            toast.error('Something went wrong');
+        })
+
+        localStorage.clear();
+    }
     
   render() {
     
+    const tooltip = (
+        <Tooltip id="tooltip">
+          <strong>Logout</strong>
+        </Tooltip>
+        
+      );
+      const tooltip_profile = (
+        <Tooltip id="tooltip">
+          <strong>My-profile</strong>
+        </Tooltip>
+        
+      );
+    let buttons;
+    if(localStorage.getItem('token')){
+        buttons = (<span>
+            <Link to={"/"} onClick={this.Logout} style={{ fontSize:'24px' }} className='btn'><OverlayTrigger placement="bottom" overlay={tooltip}><i tool class="fa-solid fa-right-from-bracket"></i></OverlayTrigger></Link>
+            <Link to="/user-profile" style={{ fontSize:'24px' }} className='btn'><OverlayTrigger placement="bottom" overlay={tooltip_profile}><i class="fa-solid fa-user"></i></OverlayTrigger></Link>
+        </span>
+        );
+    }else{
+        buttons = (
+            <span>
+            <Link to="/login" className='btn'>LOGIN</Link>
+            <Link to="/register" className='btn'>REGISTER</Link>
+        </span>
+        )
+    }
     return (
       <Fragment>
         <div className='topSectionDown'>
@@ -71,19 +115,27 @@ export class NavMenuDesktop extends Component {
                         <Link to="/favourite" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-solid fa-heart fa-beat-fade'></i><sup><span className='badge bg-danger text-white'>3</span></sup></Link>
                         <Link to="/notifications" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-bell fa-shake'></i><sup><span className='badge bg-danger text-white'>6</span></sup></Link>
                         <Link to="/" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-mobile'></i><sup><span className='badge bg-danger text-white'>9</span></sup></Link>
-                        <Link to="/login" className='btn'>LOGIN</Link>
-                        <Link to="/register" className='btn'>REGISTER</Link>
+                        {buttons}
                         <Link  to="/cart" className='cart-btn text-decoration-none text-white'>
                             <i className='fa fa-shopping-cart'></i>&nbsp; 3 Products
                         </Link>
-                        {/* <Link  to="/cart" className='cart-btn text-decoration-none text-white'>
-                            <i className='fa fa-shopping-cart'></i>&nbsp; {this.state.visit_date} Items
-                        </Link> */}
                         </div>
                         
                     </Col>
                 </Row>
             </Container>
+            <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
         </Navbar>
             <div className={this.state.sideBar}>
                 <MegaMenuMobile/>

@@ -6,12 +6,16 @@ import FooterMobile from '../components/common/FooterMobile'
 import UserProfilePage from '../components/common/UserProfilePage'
 import axios from 'axios'
 import appURL from '../components/api/appURL'
+import { Navigate, redirect } from 'react-router-dom'
 
 export class USerProfile extends Component {
   constructor(props){
     super()
   }
   render() {
+    if(!localStorage.getItem('token')){
+      return <Navigate to="/login"/>
+    }
     return (
       <Fragment>
         <div className='Desktop'>

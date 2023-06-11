@@ -4,11 +4,19 @@ import NavMenuMobile from '../components/common/NavMenuMobile'
 import FooterDesktop from '../components/common/FooterDesktop'
 import FooterMobile from '../components/common/FooterMobile'
 import UserLogin from '../components/common/UserLogin'
+import { Navigate } from 'react-router-dom'
 export class Login extends Component {
-    componentDidMount(){
-        window.scroll(0,0);
-      }
+  constructor(props){
+    super()
+  }
+  componentDidMount(){
+    window.scroll(0,0);
+  }
   render() {
+    if(localStorage.getItem('token')){
+      return <Navigate to={"/user-profile"} />
+    }
+    const setUser = this.props.setUser;
     return (
       <Fragment>
         <div className='Desktop'>
@@ -17,7 +25,7 @@ export class Login extends Component {
         <div className='Mobile'>
            <NavMenuMobile/>
         </div>
-        <UserLogin/>
+        <UserLogin setUser={setUser}/>
         
         <div className='Desktop'>
           <FooterDesktop/>

@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Navigate } from 'react-router-dom'
 export class UserLogin extends Component {
-  constructor(){
+  constructor(props){
     super()
     this.state = {
       email : '',
@@ -82,6 +82,7 @@ export class UserLogin extends Component {
         const pieces = queryParameters.split(/[\s|]+/)
         const last = pieces[pieces.length - 1]
         localStorage.setItem('token',last);
+        this.props.setUser(res.data.user)
         this.setState({
           loginStatus : true
         })
