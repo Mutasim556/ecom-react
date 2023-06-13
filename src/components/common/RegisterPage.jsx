@@ -122,6 +122,9 @@ export class RegisterPage extends Component {
   LoginHandler = (e) =>{
     e.preventDefault();
     if(this.loginValidate()){
+      let submit_button = document.getElementById('submit_button');
+      submit_button.classList.add("disabled");
+      submit_button.innerHTML="Processing......."
       axios.post(appURL.BaseURL+"/register",{
         name : this.state.name,
         email : this.state.email,
@@ -129,12 +132,16 @@ export class RegisterPage extends Component {
         password_again : this.state.rpassword,
       })
       .then((res)=>{
+        submit_button.classList.remove("disabled");
+        submit_button.innerHTML="CREATE"
         this.setState({
           invalidEmail : '',
         });
         toast.success('User registration successfully completed');
       })
       .catch((err)=>{
+        submit_button.classList.remove("disabled");
+        submit_button.innerHTML="CREATE"
         this.setState({
           invalidEmail : err.response.data.errors.email[0],
         });
@@ -172,7 +179,7 @@ export class RegisterPage extends Component {
                           <span className='text-danger m-2'>{this.state.rinvalidPassword}</span>
 
 
-                          <Button className='btn btn primary m-0 mt-4 site-btn-login' type='submit'>CREATE</Button><br /><br /><br />
+                          <Button className='btn btn primary m-0 mt-4 site-btn-login' type='submit' id='submit_button'>CREATE</Button><br /><br /><br />
                           <hr />
                           <div className='text-center'>
                           Forget your password ? <Link to={"/forget-password"}>Reset password</Link><br /><br />

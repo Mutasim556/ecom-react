@@ -10,7 +10,6 @@ export class CategoryProduct extends Component {
   constructor(props){
     super(props)
     const queryParameters =window.location.href;
-    const str = "hello,how,are,you,today?"
     const pieces = queryParameters.split(/[\s/]+/)
     const last = pieces[pieces.length - 1]
     this.state = {

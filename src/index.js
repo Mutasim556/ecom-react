@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../src/assets/css/custom.css';
 import 'animate.css';
 import "./assets/css/placeHolder.css";
+
 axios.defaults.headers.common['Authorization']='Bearer '+localStorage.getItem('token')
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

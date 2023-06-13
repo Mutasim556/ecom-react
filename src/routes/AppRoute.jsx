@@ -38,6 +38,9 @@ export class AppRoute extends Component {
         .then((res)=>{
           this.setUser(res.data)
         })
+        .catch(()=>{
+          localStorage.clear();
+        })
       }
       
   }
@@ -54,7 +57,7 @@ export class AppRoute extends Component {
             <Route path="/how-to-purchase" element={<Purchase/>} key={Date.now()}></Route>
             <Route path="/privacy-policy" element={<PrivacyPolicy/>} key={Date.now()}></Route>
             <Route path="/refund-policy" element={<RefundPolicy/>} key={Date.now()}></Route>
-            <Route path="/product-details" element={<ProductDetails/>} key={Date.now()}></Route>
+            <Route path="/product-details/:id" element={<ProductDetails userD={this.state.user} setUser={this.setUser}/>} key={Date.now()}></Route>
             <Route path="/notifications" element={<Notification/>} key={Date.now()}></Route>
             <Route path="/favourite" element={<Favourite/>}> key={Date.now()}</Route>
             <Route path="/cart" element={<Cart/>} key={Date.now()}></Route>
@@ -64,7 +67,7 @@ export class AppRoute extends Component {
             <Route path="/register"  element={<Register />} key={Date.now()}></Route>
             <Route path="/forget-password"  element={<ForgetPassword />} key={Date.now()}></Route>
             <Route path="/reset-password/:resetCode"  element={<ResetPassword />} key={Date.now()}></Route>
-            <Route path="/user-profile" element={<USerProfile  userD={this.state.user} setUser={this.setUser}/>} key={Date.now()}></Route>
+            <Route path="/user-profile" element={<USerProfile  userD={this.state.user} setUser={this.setUser}/>} key={Date.now()}></Route> 
         </Routes>
       </Fragment>
     )

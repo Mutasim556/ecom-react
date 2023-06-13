@@ -73,11 +73,16 @@ export class UserLogin extends Component {
   LoginHandler = (e) =>{
     e.preventDefault();
     if(this.loginValidate()){
+      let submit_button = document.getElementById('submit_button');
+      submit_button.classList.add("disabled");
+      submit_button.innerHTML="Processing......."
       axios.post(appURL.BaseURL+"/user-login",{
         email : this.state.email,
         password : this.state.password,
       })
       .then((res)=>{
+        submit_button.classList.remove("disabled");
+        submit_button.innerHTML="Login"
         const queryParameters =res.data.token;
         const pieces = queryParameters.split(/[\s|]+/)
         const last = pieces[pieces.length - 1]
@@ -88,6 +93,8 @@ export class UserLogin extends Component {
         })
       })
       .catch((err)=>{
+        submit_button.classList.remove("disabled");
+        submit_button.innerHTML="Login"
         this.setState({
           errMessage : err.response.data.message
         })
@@ -115,7 +122,7 @@ export class UserLogin extends Component {
                           <h6 className='section-sub-title mt-2' style={{marginLeft:'8px',fontWeight:'1000'}}>User Password </h6>
                           <input type="password" className={"form-control m-2 "+this.state.invalidPasswordClass} placeholder='Enter your password' onChange={(e)=>{this.setState({password:e.target.value})}}/>
                           &nbsp; <span className='text-danger mt-2'>{this.state.invalidPassword}</span>
-                          <Button className='btn btn primary m-2 mt-4 site-btn-login' type='submit'>Login</Button> <br /><br /><br />
+                          <Button className='btn btn primary m-2 mt-4 site-btn-login' type='submit' id='submit_button'>Login</Button> <br /><br /><br />
 
                           <hr />
                           <div className='text-center'>

@@ -15,12 +15,12 @@ export class ForgetPasswordPage extends Component {
       emailError : "",
       emailErrorClass : "",
       resetEmail :false,
+      time:"",
       
     }
   }
   componentDidMount(){
     window.scroll(0,0);
-    
   }
   formValidation(){
     let flag = 0;
@@ -52,11 +52,18 @@ export class ForgetPasswordPage extends Component {
   forgetPasswordForm = (e) =>{
     e.preventDefault();
     if(this.formValidation()){
+      let submit_button = document.getElementById('submit_button');
+      submit_button.classList.add("disabled");
+      submit_button.innerHTML="Processing......."
       axios.post(appURL.BaseURL+'/forgot-password',{
         email : this.state.email
       }).then((res)=>{
+        submit_button.classList.remove("disabled");
+        submit_button.innerHTML="Reset Password"
         toast.success(res.data.message);
       }).catch((err)=>{
+        submit_button.classList.remove("disabled");
+        submit_button.innerHTML="Reset Password"
         this.setState({
           emailError : err.response.data.errors.email[0]
         })
@@ -64,6 +71,7 @@ export class ForgetPasswordPage extends Component {
     }
   }
   render() {
+    
     return (
       <Fragment>
         <Container>
@@ -76,7 +84,11 @@ export class ForgetPasswordPage extends Component {
                           <h6 className='section-sub-title' style={{marginLeft:'8px',fontWeight:'1000'}}>User Email</h6>
                           <input type="text" className={"form-control m-2 "+this.state.emailErrorClass} placeholder='Enter your email' onChange={(e)=>{this.setState({email : e.target.value})}}/>
                            &nbsp;&nbsp;<span className='text-danger my-2'>{this.state.emailError}</span>
-                          <Button type='submit' className='btn btn primary m-2 mt-4 site-btn-login'> Reset Password</Button><br /><br /><br />
+                           
+                          <Button type='submit' className='btn btn primary m-2 mt-4 site-btn-login' id='submit_button'> Reset Password</Button><br />
+                          <p className='section-sub-title' style={{marginLeft:'8px',fontWeight:'1000'}}>
+                            
+                          </p><br /><br />
                           {/* <hr />
                           <div className='text-center'>
                           Forget your password ? <Link>Reset password</Link><br /><br />

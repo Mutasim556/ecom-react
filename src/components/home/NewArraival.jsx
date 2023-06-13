@@ -5,6 +5,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import appURL from '../api/appURL';
+import { Link } from 'react-router-dom';
+
 export class NewArraival extends Component {
     constructor(props){
         super(props);
@@ -71,6 +73,7 @@ export class NewArraival extends Component {
     let Products = this.state.productDetails.map((Product,idx)=>{
         if(Product.product_discount===null){
         return <div>
+                  <Link to={"/product-details/"+Product.product_id} className='text-decoration-none'>
                     <Card className='card image-box'>
                         <img className='center' src={Product.product_image} alt="" />
                         <Card.Body>
@@ -78,9 +81,12 @@ export class NewArraival extends Component {
                         <p className='product-price-on-card'>$120</p>
                         </Card.Body>
                     </Card>
+                  </Link>
                 </div>
+            
         }else{
             return <div>
+                  <Link to={"/product-details/"+Product.product_id} className='text-decoration-none'>
                     <Card className='card image-box'>
                         <img className='center' src={Product.product_image} alt="" />
                         <Card.Body>
@@ -91,6 +97,7 @@ export class NewArraival extends Component {
                         </p>
                         </Card.Body>
                     </Card>
+                  </Link>
                 </div>
         }
     })

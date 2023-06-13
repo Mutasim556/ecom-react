@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component, Fragment } from 'react'
 import { Col, Container, Row , Card} from 'react-bootstrap'
 import appURL from '../api/appURL';
-
+import { Link } from 'react-router-dom';
 
 export class Collection extends Component {
   constructor(props){
@@ -23,6 +23,8 @@ export class Collection extends Component {
     let Products = this.state.productDetails.map((Product,idx)=>{
       if(Product.product_discount===null){
           return <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={12} xs={6}>
+            <Link to={"/product-details/"+Product.product_id} className='text-decoration-none'>
+          
           <Card className='card image-box w-100'>
             <img className='center w-100' src={Product.product_image} alt="" />
             <Card.Body>
@@ -30,9 +32,13 @@ export class Collection extends Component {
               <p className='product-price-on-card'>{Product.product_price } BDT</p>
             </Card.Body>
           </Card>
+          </Link>
         </Col>
+        
       }else{
         return <Col className='p-0' key={1} xl={3} lg={3} md={3} sm={12} xs={6}>
+          <Link to={"/product-details/"+Product.product_id} className='text-decoration-none'>
+        
         <Card className='card image-box w-100'>
           <img className='center w-100' src={Product.product_image} alt="" />
           <Card.Body>
@@ -43,7 +49,9 @@ export class Collection extends Component {
             </p>
           </Card.Body>
         </Card>
+        </Link>
       </Col>
+      
       }
     });
     return (
@@ -55,6 +63,7 @@ export class Collection extends Component {
             </div>
             <Row>
                 {Products}
+                
             </Row>
         </Container>
       </Fragment>

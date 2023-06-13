@@ -24,7 +24,7 @@ export class FeatureProduct extends Component {
     let Products = this.state.productDetails.map((Product,idx)=>{
       if(Product.product_discount===null){
         return <Col className='p-1' key={idx.toString()} xl={2} lg={2} md={2} sm={2} xs={6}>
-            <Link to="/product-details" className='text-decoration-none'>
+            <Link to={"/product-details/"+Product.product_id} className='text-decoration-none'>
             <Card className='card image-box'>
               <img className='center' src={Product.product_image} alt="" />
               <Card.Body>
@@ -36,7 +36,7 @@ export class FeatureProduct extends Component {
         </Col>
       }else{
         return <Col className='p-1' key={idx.toString()} xl={2} lg={2} md={2} sm={2} xs={6}>
-                <Link to="/product-details" className='text-decoration-none'>
+                <Link to={"/product-details/"+Product.product_id} className='text-decoration-none'>
                 <Card className='card image-box'>
                   <img className='center' src={Product.product_image} alt="" />
                   <Card.Body>

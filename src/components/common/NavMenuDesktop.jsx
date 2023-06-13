@@ -17,11 +17,27 @@ export class NavMenuDesktop extends Component {
             allCategories : [],
             allSubCategories : [],
             login : true,
+            cartCount : 0,
         }
 
 
     }
-
+componentDidMount(){
+        if(localStorage.getItem('token')){
+            axios.get(appURL.BaseURL+"/count-cart",{
+                headers :{
+                  'Authorization' : `Bearer ${localStorage.getItem("token")}`,
+                }
+              })
+            .then((res)=>{
+                this.setState({
+                    cartCount : res.data.count,
+                })
+            }).catch((err)=>{
+                toast.error('Something went wrong');
+            })
+        }
+    }
     SideNavBarHandler = () =>{
         this.openClose();
     }
@@ -51,6 +67,9 @@ export class NavMenuDesktop extends Component {
               'Authorization' : `Bearer ${localStorage.getItem("token")}`,
             }
         }).then(()=>{
+            this.setState({
+                login : false,
+            })
             toast.success('Logout successfull');
         }).catch(()=>{
             toast.error('Something went wrong');
@@ -78,6 +97,9 @@ export class NavMenuDesktop extends Component {
         buttons = (<span>
             <Link to={"/"} onClick={this.Logout} style={{ fontSize:'24px' }} className='btn'><OverlayTrigger placement="bottom" overlay={tooltip}><i tool class="fa-solid fa-right-from-bracket"></i></OverlayTrigger></Link>
             <Link to="/user-profile" style={{ fontSize:'24px' }} className='btn'><OverlayTrigger placement="bottom" overlay={tooltip_profile}><i class="fa-solid fa-user"></i></OverlayTrigger></Link>
+            <Link  to="/cart" className='cart-btn text-decoration-none text-white'>
+                            <i className='fa fa-shopping-cart'></i>&nbsp; {this.state.cartCount} Products
+                        </Link>
         </span>
         );
     }else{
@@ -116,9 +138,7 @@ export class NavMenuDesktop extends Component {
                         <Link to="/notifications" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-bell fa-shake'></i><sup><span className='badge bg-danger text-white'>6</span></sup></Link>
                         <Link to="/" className='btn'><i style={{ fontSize:'24px' }} className='fa fa-mobile'></i><sup><span className='badge bg-danger text-white'>9</span></sup></Link>
                         {buttons}
-                        <Link  to="/cart" className='cart-btn text-decoration-none text-white'>
-                            <i className='fa fa-shopping-cart'></i>&nbsp; 3 Products
-                        </Link>
+                        
                         </div>
                         
                     </Col>
